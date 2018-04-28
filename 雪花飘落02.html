@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>practice01</title>
+	<style>
+		*{
+			padding: 0;
+			margin: 0;
+		}
+		canvas{
+			background:#87CEEB;
+			display: block;
+		}
+	</style>
+</head>
+<body>
+    <div style='display: none';class='music'>
+    	<audio controls='controls' autoplay='autoplay' loop=-1>
+    		<source src='http://www.170mv.com/kw/other.web.rb01.sycdn.kuwo.cn/resource/n2/9/19/2360558048.mp3' type='audio/mpeg'>
+    	</audio>
+    </div>
+	<canvas id='canvas'></canvas>
+	<script>
+	var canvas1=document.getElementById('canvas');
+	var context=canvas1.getContext('2d');
+	var w=canvas1.width=window.innerWidth;
+	var h=canvas1.height=window.innerHeight;
+	window.onresize=function(){
+		w=canvas1.width=window.innerWidth;
+	    h=canvas1.height=window.innerHeight;
+		
+	}
+	var num=1000;
+	var point=[];
+	for(var i=0;i<num;i++){
+		point.push({
+		x:Math.random()*w,
+		y:Math.random()*h,
+		r:Math.random()*5
+	})
+	}//此处for的作用是产生千个雪花
+	function draw(){
+		context.clearRect(0,0,w,h);
+		context.beginPath();//相当于表示开始创建路径了
+
+		for(var i=0;i<num;i++){
+			context.moveTo(point[i].x,point[i].y);//相当于提笔，在新的位置开始创建雪花路径
+			context.arc(point[i].x,point[i].y,point[i].r,0,Math.PI*2,false)
+		}//此处for的作用是读取千个雪花
+		context.fill();
+		update();
+        context.fillStyle="white";
+	}
+    function update(){
+    	for(var i=0;i<num;i++){
+    		 point[i].y+=Math.random()*5;
+    		if(point[i].y>h){
+    		point[i].y=0;
+    	}
+    	}  
+    	}
+    
+    setInterval(draw,30)
+	</script>
+</body>
+</html>
